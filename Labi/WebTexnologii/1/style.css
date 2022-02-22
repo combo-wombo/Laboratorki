@@ -1,0 +1,114 @@
+HTML{
+	font-family: Helvetica;
+}
+body{
+	padding: 0 0 0 0;
+	margin: 0 0 0 0;
+}
+.MainWindow{
+	Background-color: #F0EBF8;
+	width:100%;
+
+}
+.TopColorBar{
+	position:absolute;
+	top:0;
+	left:0;
+	Background-color: #673AB7;
+	width:100%;
+	height:30%;
+}
+.FormWindow{
+	position:absolute;
+	top:15%;
+	left:20%;
+	Background-color: white;
+	width:60%;
+
+	border-radius: 5px;
+	border-top: 10px solid #9370d8; 
+	box-shadow: 0 10px 10px rgba(0,0,0,0.2);	
+}
+.FormContent{
+	width: 92%;
+	height: 100%;
+	padding: 4%;
+}
+.HText1{
+	font-size: 200%;
+}
+.HText2{
+	font-size: 100%;
+	color: rgba(0,0,0,0.7);
+	line-height: 130%;
+	margin-top: 32px;
+}
+.HText3{
+	font-size: 100%;
+	color: #ff2400;
+	margin-top: 32px;
+}
+.Required{
+	color: #ff2400;
+}
+.FieldName{
+	font-size: 140%;
+	line-height: 130%;
+	margin: 54px 0 22px;
+}
+input:invalid {
+	border: 1px solid #ba4545;
+}
+input:focus:invalid {
+	background-color: white;
+}
+input:invalid:required {
+}
+input:valid {
+}
+input{
+	margin-bottom: 11px;
+}
+.FButton{
+	margin-top: 43px;
+	width: 90px;
+	height: 36px;
+	background-color: #217aff;
+	color: white;
+	border: 0;
+	border-radius: 5px;
+}
+.hint{
+	color:grey;
+	font-size: 80%;
+	line-height: 100%;
+}
+.hintRadio{
+	color:black;
+	font-size: 90%;
+	line-height: 100%;
+}
+@media screen and (max-width: 1920px){
+.FormWindow{
+	height: 1550px;
+}
+}
+@media screen and (max-width: 1080px){
+.FormWindow{
+	width: 90%;
+	left: 5%;
+	height: 1600px;
+}
+}
+@media screen and (max-width: 700px){
+.FormWindow{
+	height: 1700px;
+}
+}
+@media screen and (max-width: 550px){
+.FormWindow{
+	width: 100%;
+	left: 0;
+	height: 1650px;
+}
+}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<HEAD>
+		<meta charset="utf-8">
+		<title>Зоо-магазин</title>
+		<link rel="stylesheet" href="style.css">
+		<!--script src="script.js"></script-->
+	</HEAD>
+	<BODY>
+		<div class="MainWindow">
+			<div class="TopColorBar"></div>
+			<div class="FormWindow">
+				<div class="FormContent">
+					<div class="FormHeader">
+						<div class="HText1">Регистрация в интернет зоо-магазине</div>
+						<div class="HText2">Имя и изображение, связанные с вашим аккаунтом Google будут записаны когда вы загрузите файлы и заполните эту форму. Вы не <b>Hello.world@gmail.com</b>? <a href="https://myaccount.google.com/">Сменить аккаунт</a></div>
+						<div class="HText3">*Необходимо заполнить</div>
+						<form action="received.php" method=post>
+							<p id="MailP" class="FieldName">Введите адрес электронной почты<span class="Required">*</span></p>
+							<input name="email" type=email placeholder="Эл. почта" 	pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required="required" maxlength="255"/>
+							<br><span class="hint">Пример: "example@gmail.com".</span>
+
+							<p id="LoginP" class="FieldName">Придумайте логин<span class="Required">*</span></p>
+							<input name="login" type=text placeholder="Логин" 	pattern="^[a-zA-Z0-9]+$" required="required" maxlength="20"/>
+							<br><span class="hint">Логин может быть не длиннее 20 символов, должен содержать латинские буквы или цифры.</span>
+							
+							<p id="PassP" class="FieldName">Придумайте пароль<span class="Required">*</span></p>
+							<input name="pass" type=password placeholder="Пароль" 	pattern="^[a-zA-Z0-9]+$" required="required" minlength="5"/>
+							<br><span class="hint">Пароль должен быть не короче 5 символов, должен содержать латинские буквы или цифры.</span>
+							
+							<p id="AboutP" class="FieldName">Расскажите немного о себе</p>
+							<textarea name="about" type=text placeholder="О себе..."></textarea>
+							
+							<p id="AnimalP" class="FieldName">Выберите вашего питомца</p>
+							<input type="radio" name="animal" value="cat"><span class="hintRadio">Кот</span><br>
+							<input type="radio" name="animal" value="dog"><span class="hintRadio">Собака</span><br>
+							<input type="radio" name="animal" value="bird"><span class="hintRadio">Птица</span><br>
+							
+							<p id="CityP" class="FieldName">Выберите свой город</p>
+							<select name=city>
+								<option>Минск</option>
+								<option>Брест</option>
+								<option>Кобрин</option>
+								<option>Могилёв</option>
+							</select><br>
+							
+							<p id="ImageP" class="FieldName">Загрузите свой аватар</p>
+							<input name="image" type=file accept=".png, .jpg, .jpeg"/>
+							<br><span class="hint">Картинка должна быть формата PNG, JPEG, или JPG.</span>
+
+							<p id="DateP" class="FieldName">Выберите дату рождения</p>
+							<input type="date" name="birthday" value="2000-01-01" min="1900-01-01">
+							<br><span class="hint">Дата рождения будет отображаться в вашем профиле.</span>
+							
+							<br><input name="submit" type="submit" Class="FButton" value="Отправить">
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</BODY>
+</HTML>
