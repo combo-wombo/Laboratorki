@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<HEAD>
+		<meta charset="utf-8">
+		<title>Зоо-магазин</title>
+		<link rel="stylesheet" href="groundwork.css">
+    	<link rel="stylesheet" href="style.css">
+		<!--script src="script.js"></script-->
+	</HEAD>
+	<BODY>
+    <div class="ColorBar"></div>
+		<div class="row content">
+      <div class="one fifth"></div>
+      <div class="three fifths">
+        <div class="formWindow border-top">
+			<h2>Регистрация в интернет зоо-магазине</h2>
+			<h4>Имя и изображение, связанные с вашим аккаунтом Google будут записаны когда вы загрузите файлы и заполните эту форму. Вы не <b>Hello.world@gmail.com</b>? <a href="myaccount.google.com/">Сменить аккаунт</a></h4>
+			<h4 class="red">*Необходимо заполнить</h4><br>
+
+
+			<form action="#" method="post">
+				<label for="email">Введите адрес электронной почты</label>
+				<input name="email" type=email placeholder="Эл. почта" 	pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required="required" maxlength="255"/>
+				<p class="hint">Пример: example@email.com</p><br>
+				
+				<label for="name">Придумайте логин</label>
+				<input name="login" type=text placeholder="Логин" 	pattern="^[a-zA-Z0-9]+$" required="required" maxlength="20"/>
+				<p class="hint">Логин может быть не длиннее 20 символов, должен содержать латинские буквы или цифры.</p><br>
+
+				<label for="name">Придумайте пароль</label>
+				<input name="pass" type=password placeholder="Пароль" 	pattern="^[a-zA-Z0-9]+$" required="required" minlength="5"/>
+				<p class="hint">Пароль должен быть не короче 5 символов, должен содержать латинские буквы или цифры.</p><br>
+
+				<label for="message">Расскажите немного о себе</label>
+        		<textarea name="about" type=text placeholder="О себе..."></textarea>
+
+				<label for="thing1">Выберите вашего питомца</label>
+				<ul class="unstyled zero">
+				<li>
+					<input id="thing1" type="radio" name="animal" checked="">
+					<label for="thing1" class="inline">Кот</label>
+				</li>
+				<li>
+					<input id="thing2" type="radio" name="animal">
+					<label for="thing2" class="inline">Собака</label>
+				</li>
+				<li>
+					<input id="thing3" type="radio" name="animal">
+					<label for="thing3" class="inline">Птица</label>
+				</li>
+				</ul><br>
+				
+				<div class="row">
+				<div class="one half">
+				<span class="select-wrap">
+					<select class="unselected">
+					  <option value="" disabled="" selected="">Выберите город</option>
+					  <option value="AL">Брест</option>
+					  <option value="AK">Минск</option>
+					  <option value="AZ">Могилёв</option>
+					  <option value="AR">Кобрин</option>
+					  <option value="CA">Гомель</option>
+					  <option value="CO">Другой</option>
+					</select>
+				</span>
+				</div><div class="one half"></div></div><br>
+
+				<label for="message">Загрузите свой аватар</label>
+        		<input name="image" type=file accept=".png, .jpg, .jpeg"/>
+				<p class="hint">Картинка должна быть формата PNG, JPEG, или JPG.</p><br>
+
+				<label for="message">Выберите дату рождения</label>
+        		<input type="date" name="birthday" value="2000-01-01" min="1900-01-01">
+				<p class="hint">Дата рождения будет отображаться в вашем профиле.</p><br>
+
+				<br><input name="submit" type="submit" class="blue button" value="Отправить">
+			</form>
+
+
+		</div>
+      </div>
+      <div class="one fifth"></div>
+    </div>
+	</BODY>
+</HTML>
