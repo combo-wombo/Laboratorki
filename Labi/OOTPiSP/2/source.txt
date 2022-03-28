@@ -1,0 +1,44 @@
+#include <math.h>
+#include <stdio.h>
+#include <iostream>
+#include <iomanip>
+
+int main() {
+	int a;
+	float b1, x1, y1, z1;
+	double b2, x2, y2, z2;
+	a = 1000;
+	//=======zadanie 1 float=======
+	b1 = 0.0001;
+	x1 = pow(a + b1, 3) - pow(a, 3);
+	y1 = 3 * a * pow(b1, 2) + pow(b1, 3) + 3 * a * a * b1;
+	z1 = x1 / y1;
+	std::cout << std::fixed << "Result for Float: " << z1 << std::endl;
+	//=============================
+
+	//===double====
+	b2 = 0.0001;
+	x2 = pow(a + b2, 3) - pow(a, 3);
+	y2 = 3 * a * pow(b2, 2) + pow(b2, 3) + 3 * a * a * b2;
+	z2 = x2 / y2;
+	std::cout << std::fixed << "Result for Double: " << z2 << std::endl;
+	//=============
+
+	//==zadanie 2==
+	int n, m;
+	bool x; //для 2) и 3)
+
+	std::cout << "Enter n: "; //ввод Н
+	std::cin >> n;			  
+
+	std::cout << "Enter m: "; //ввод М
+	std::cin >> m;			  
+
+	std::cout << "1) n++ * m: " << n++ * m << std::endl;
+	x = n++ < m; //0-False, 1-True, нужно для 2)
+	std::cout << "2) n++ < m: " << x << std::endl;
+	x = m-- > m; //Для 3)
+	std::cout << "3) m-- > m: " << x << std::endl;
+
+	return 0; //потому что Int main, а не Void main
+}
