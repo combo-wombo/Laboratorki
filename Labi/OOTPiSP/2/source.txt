@@ -1,44 +1,43 @@
-#include <math.h>
-#include <stdio.h>
 #include <iostream>
-#include <iomanip>
+#include <fstream>
+#include <sstream>
+using namespace std;
+
+//Напишите программу проверки "C" - программы на элементарные синтаксические ошибки, 
+//такие как несоответствие круглых, квадратных и фигурных скобок. Не забудьте о кавычках 
 
 int main() {
-	int a;
-	float b1, x1, y1, z1;
-	double b2, x2, y2, z2;
-	a = 1000;
-	//=======zadanie 1 float=======
-	b1 = 0.0001;
-	x1 = pow(a + b1, 3) - pow(a, 3);
-	y1 = 3 * a * pow(b1, 2) + pow(b1, 3) + 3 * a * a * b1;
-	z1 = x1 / y1;
-	std::cout << std::fixed << "Result for Float: " << z1 << std::endl;
-	//=============================
+	int a1 = 0, a2 = 0, b1 = 0, b2 = 0, c1 = 0, c2 = 0, k = 0;	int i = 0;
+	//a1, a2 - ( ); b1, b2 - [ ]; c1, c2 - { }; k - " ".
+	ifstream fin("file.c");
+	string word, filecontents;
+	if (!fin) {
+		cout << "File could not be opened." << endl;
+		exit(1);
+	}
+	while (!fin.eof()) {
+		getline(fin, word);
+		filecontents += word + "\n";
+	}
+	fin.close();
 
-	//===double====
-	b2 = 0.0001;
-	x2 = pow(a + b2, 3) - pow(a, 3);
-	y2 = 3 * a * pow(b2, 2) + pow(b2, 3) + 3 * a * a * b2;
-	z2 = x2 / y2;
-	std::cout << std::fixed << "Result for Double: " << z2 << std::endl;
-	//=============
-
-	//==zadanie 2==
-	int n, m;
-	bool x; //для 2) и 3)
-
-	std::cout << "Enter n: "; //ввод Н
-	std::cin >> n;			  
-
-	std::cout << "Enter m: "; //ввод М
-	std::cin >> m;			  
-
-	std::cout << "1) n++ * m: " << n++ * m << std::endl;
-	x = n++ < m; //0-False, 1-True, нужно для 2)
-	std::cout << "2) n++ < m: " << x << std::endl;
-	x = m-- > m; //Для 3)
-	std::cout << "3) m-- > m: " << x << std::endl;
-
-	return 0; //потому что Int main, а не Void main
+	for (int i = 0; i < filecontents.length(); i++) {
+		cout << filecontents[i];
+		switch (filecontents[i]) {
+		case '(': a1++;	break;
+		case ')': a2++;	break;
+		case '[': b1++;	break;
+		case ']': b2++;	break;
+		case '{': c1++;	break;
+		case '}': c2++;	break;
+		case '"': k++;	break;
+		}
+	}
+	if (a1 == a2 && b1 == b2 && c1 == c2 && (k % 2) == 0) {
+		cout << endl << "=======[No problems.]=======" << endl;
+	}
+	else {
+		cout << endl <<  "=======[Something is wrong (check parentheses).]=======" << endl;
+	}
+	return 0;
 }
