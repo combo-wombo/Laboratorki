@@ -1,0 +1,63 @@
+section .data
+  entermsg db 'Enter your message: '
+  enlen equ $ - entermsg
+  resultmsg db 0xa, 'Final result: '
+  reslen equ $ - resultmsg
+  
+  myString db 'This is my input string'
+  strlen equ $ - myString
+  
+section .bss
+  buff resb strlen
+section .text
+  global _start
+
+
+%macro printMsg 2
+  mov ebx, 1
+  mov eax, 4  
+  mov ecx, %1
+  mov edx, %2
+  int 0x80
+%endmacro
+
+%macro deleteSpaces 2
+  lea eax, [%1]
+  mov edi, buff
+  mov esi, eax
+  mov ecx, %2
+  jmp check
+  ;mov al,'.'
+  ;mov [esi], al
+  
+check:
+  mov al, ' '
+  cmp [esi], al
+  jne copy
+  je nxt
+nxt:	
+  inc esi
+	loop check
+	jmp ext
+copy:
+  mov al, [esi]
+  mov [edi], al
+  inc edi
+  ;asdfasdfasd
+  jmp nxt
+ext:  
+%endmacro
+
+_start:
+  printMsg entermsg, enlen
+  printMsg myString, strlen
+  
+  deleteSpaces myString, strlen 
+  
+  printMsg resultmsg, reslen
+  printMsg buff, strlen
+
+  mov ebx,0   ;process' exit code
+  mov eax,1   ;(sys_exit)
+  int 80h    ;kernel reads the eax register
+  
