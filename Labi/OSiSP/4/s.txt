@@ -1,0 +1,67 @@
+#include <unistd.h>
+#include <sys/types.h>
+#include <stdio.h>
+#include <stdlib.h>
+//execl("/usr/bin/ls", "ls", NULL);
+//process 0
+int main() {
+    pid_t pid;
+    printf("Process 0: PID = %d, PPID = %d\n", getpid(), getppid());
+    //creating process 1
+    if ((pid = fork()) == -1){
+        printf("Error\n");
+    }
+    else if (pid == 0){
+        printf("Process 1 created: PID = %d, PPID = %d\n", getpid(), getppid());
+            //creating process 3
+            if ((pid = fork()) == -1){
+                printf("Error\n");
+            }
+            else if (pid == 0){
+                printf("Process 3 created: PID = %d, PPID = %d\n", getpid(), getppid());
+                    //creating process 4
+                    if ((pid = fork()) == -1){
+                        printf("Error\n");
+                    }
+                    else if (pid == 0){
+                        printf("Process 4 created: PID = %d, PPID = %d\n", getpid(), getppid());
+                        printf("Killing process 4: PID = %d, PPID = %d\n", getpid(), getppid());
+                        exit(0);
+                    } else sleep(2);//killed process 4
+                    //creating process 5
+                    if ((pid = fork()) == -1){
+                        printf("Error\n");
+                    }
+                    else if (pid == 0){
+                        printf("Process 5 created: PID = %d, PPID = %d\n", getpid(), getppid());
+                        printf("Killing process 5: PID = %d, PPID = %d\n", getpid(), getppid());
+                        exit(0);
+                    } else sleep(2);//killed process 5
+                    //creating process 6
+                    if ((pid = fork()) == -1){
+                        printf("Error\n");
+                    }
+                    else if (pid == 0){
+                        printf("Process 6 created: PID = %d, PPID = %d\n", getpid(), getppid());
+                        printf("Killing process 6: PID = %d, PPID = %d\n", getpid(), getppid());
+                        execl("/usr/bin/ls", "ls", NULL);
+                    } else sleep(2);//killed process 6
+                printf("Killing process 3: PID = %d, PPID = %d\n", getpid(), getppid());
+                exit(0);
+            } else sleep(7);//killed process 3
+        printf("Killing process 1: PID = %d, PPID = %d\n", getpid(), getppid());
+        exit(0);
+    } else sleep(8);//killed process 1
+    //creating process 2
+    if ((pid = fork()) == -1){
+        printf("Error\n");
+    }
+    else if (pid == 0){
+        printf("Process 2 created: PID = %d, PPID = %d\n", getpid(), getppid());
+        printf("Killing process 2: PID = %d, PPID = %d\n", getpid(), getppid());
+        exit(0);
+    }else sleep(2);
+
+    printf("Killing process 0: PID = %d, PPID = %d\n", getpid(), getppid());
+    return 0;
+}
