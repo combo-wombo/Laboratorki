@@ -1,0 +1,59 @@
+#include <opencv2/core/core.hpp>
+#include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc.hpp>
+#include <chrono>
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+
+using namespace cv;     //OpenCV2 - Computer Vision
+using namespace std;    //std::
+
+Mat BordersRobertsDefault(Mat IMAGE) { //выделение границ оператором Робертса без MIP
+    auto start = chrono::steady_clock::now();
+    int first, second, result, p1, p2, p3, p4;
+    int x, y;
+    for (x = 0; x < IMAGE.rows - 1; x++) {          //Все циклы длиной = размер - 1 пикс.
+        for (y = 0; y < IMAGE.cols - 1; y++) {
+            p1 = IMAGE.at<uchar>(x, y);             // A = x     , y
+            p2 = IMAGE.at<uchar>(x + 1, y + 1);     // B = x + 1 , y + 1
+            p3 = IMAGE.at<uchar>(x + 1, y);         // C = x + 1 , y
+            p4 = IMAGE.at<uchar>(x, y + 1);         // D = x     , y + 1
+            first = p1 - p2;                                                 // I  = A - B
+            second = p3 - p4;                                                // II = C - D
+            result = sqrt(pow(first, 2) + pow(second, 2));                   // Результирующий пиксель: R = (I^2 + II^2)^1/2;
+            IMAGE.at<uchar>(x, y) = result;                                  // Запись в пиксель
+        }
+    }
+    auto end = chrono::steady_clock::now();
+    cout << fixed;
+    cout << setprecision(4);
+    cout << "Elapsed time in seconds: "<< float(chrono::duration_cast<chrono::milliseconds>(end - start).count()) / 1000<< " sec"<<endl;
+    return IMAGE; //возврат матрицы
+}
+
+float getScale() { //функция ввода масштаба картинки
+    float scale;
+    cout << "Enter scale: " << endl;
+    cin >> scale;
+    return scale;
+}
+
+void Show(Mat image) { //функция показа картинки
+    imshow("Image", image);
+    waitKey(0);
+}
+
+int main() {
+    float scale;
+
+    string image_path = "raw.bmp";                      //путь к картинке
+    Mat image = imread(image_path, IMREAD_GRAYSCALE);   //чтение в Ч/Б режиме
+    image = BordersRobertsDefault(image);               //выделение границ
+
+    scale = getScale();                                                   //получаем масштаб с клавиатуры
+    resize(image, image, cv::Size(0, 0), scale, scale, INTER_LINEAR);     //меняем размеры картинки по масштабу
+
+    Show(image);   //показать изображение
+    return 0;
+}
