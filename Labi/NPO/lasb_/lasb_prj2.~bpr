@@ -1,0 +1,161 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!-- C++Builder XML Project -->
+<PROJECT>
+  <MACROS>
+    <VERSION value="BCB.06.00"/>
+    <PROJECT value="lasb_prj2.exe"/>
+    <OBJFILES value="lasb_prj2.obj lasb_menu_p.obj lasb_data_p.obj lasb_cdsff_p.obj 
+      lasb_cdsnn_p.obj lasb_cdstt_p.obj lasb_pdsxx_p.obj lasb_rjsxx_p.obj 
+      lasb_rjtks_p.obj lasb_kssrr_p.obj lasb_ksroo_p.obj lasb_ksrvv_p.obj 
+      lasb_ksrjj_p.obj lasb_tosxx_p.obj lasb_togxx_p.obj lasb_xxsgrid_p.obj 
+      lasb_xxssave_p.obj lasb_xxsrest_p.obj"/>
+    <RESFILES value="lasb_prj2.res"/>
+    <IDLFILES value=""/>
+    <IDLGENFILES value=""/>
+    <DEFFILE value=""/>
+    <RESDEPEN value="$(RESFILES) lasb_menu_p.dfm lasb_data_p.dfm lasb_cdsff_p.dfm 
+      lasb_cdsnn_p.dfm lasb_cdstt_p.dfm lasb_pdsxx_p.dfm lasb_rjsxx_p.dfm 
+      lasb_rjtks_p.dfm lasb_kssrr_p.dfm lasb_ksroo_p.dfm lasb_ksrvv_p.dfm 
+      lasb_ksrjj_p.dfm lasb_tosxx_p.dfm lasb_togxx_p.dfm lasb_xxsgrid_p.dfm 
+      lasb_xxssave_p.dfm lasb_xxsrest_p.dfm"/>
+    <LIBFILES value=""/>
+    <LIBRARIES value=""/>
+    <SPARELIBS value="vcl.lib rtl.lib dbrtl.lib vcldb.lib bdertl.lib qrpt.lib vclx.lib"/>
+    <PACKAGES value="vcl.bpi rtl.bpi dbrtl.bpi adortl.bpi vcldb.bpi vclx.bpi bdertl.bpi 
+      vcldbx.bpi ibxpress.bpi dsnap.bpi cds.bpi bdecds.bpi qrpt.bpi teeui.bpi 
+      teedb.bpi tee.bpi dss.bpi teeqr.bpi visualclx.bpi visualdbclx.bpi 
+      dsnapcrba.bpi dsnapcon.bpi bcbsmp.bpi vclie.bpi xmlrtl.bpi inet.bpi 
+      inetdbbde.bpi inetdbxpress.bpi inetdb.bpi nmfast.bpi webdsnap.bpi 
+      bcbie.bpi websnap.bpi soaprtl.bpi dclocx.bpi dbexpress.bpi dbxcds.bpi 
+      indy.bpi bcb2kaxserver.bpi"/>
+    <PATHCPP value=".;"/>
+    <PATHPAS value=".;"/>
+    <PATHRC value=".;"/>
+    <PATHASM value=".;"/>
+    <DEBUGLIBPATH value="$(BCB)\lib\debug"/>
+    <RELEASELIBPATH value="$(BCB)\lib\release"/>
+    <LINKER value="ilink32"/>
+    <USERDEFINES value="_DEBUG"/>
+    <SYSDEFINES value="_RTLDLL;NO_STRICT;USEPACKAGES"/>
+    <MAINSOURCE value="lasb_prj2.cpp"/>
+    <INCLUDEPATH value="D:\cb6\CBuilder6\Bin;G:\lasb_;$(BCB)\include;$(BCB)\include\vcl"/>
+    <LIBPATH value="D:\cb6\CBuilder6\Bin;G:\lasb_;$(BCB)\lib\obj;$(BCB)\lib"/>
+    <WARNINGS value="-w-par"/>
+    <OTHERFILES value=""/>
+  </MACROS>
+  <OPTIONS>
+    <IDLCFLAGS value="-ID:\cb6\CBuilder6\Bin -IG:\lasb_ -I$(BCB)\include -I$(BCB)\include\vcl 
+      -src_suffix cpp -D_DEBUG -boa"/>
+    <CFLAG1 value="-Od -H=$(BCB)\lib\vcl60.csm -Hc -Vx -Ve -X- -r- -a8 -b- -k -y -v -vi- -c 
+      -tW -tWM"/>
+    <PFLAGS value="-$YD -$W -$O- -$A8 -v -JPHNE -M"/>
+    <RFLAGS value=""/>
+    <AFLAGS value="/mx /w2 /zd"/>
+    <LFLAGS value="-D&quot;&quot; -Rr -c- -aa -Tpe -GD -x -Gn -M -w -v"/>
+    <OTHERFILES value=""/>
+  </OPTIONS>
+  <LINKER>
+    <ALLOBJ value="c0w32.obj $(PACKAGES) Memmgr.Lib sysinit.obj $(OBJFILES)"/>
+    <ALLRES value="$(RESFILES)"/>
+    <ALLLIB value="$(LIBFILES) $(LIBRARIES) import32.lib cp32mti.lib"/>
+    <OTHERFILES value=""/>
+  </LINKER>
+  <FILELIST>
+      <FILE FILENAME="lasb_prj2.res" FORMNAME="" UNITNAME="lasb_prj2.res" CONTAINERID="ResTool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="lasb_prj2.cpp" FORMNAME="" UNITNAME="lasb_prj2" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="lasb_menu_p.cpp" FORMNAME="lasb_menu" UNITNAME="lasb_menu_p" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="lasb_data_p.cpp" FORMNAME="lasb_data" UNITNAME="lasb_data_p" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="lasb_cdsff_p.cpp" FORMNAME="lasb_cdsff" UNITNAME="lasb_cdsff_p" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="lasb_cdsnn_p.cpp" FORMNAME="lasb_cdsnn" UNITNAME="lasb_cdsnn_p" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="lasb_cdstt_p.cpp" FORMNAME="lasb_cdstt" UNITNAME="lasb_cdstt_p" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="lasb_pdsxx_p.cpp" FORMNAME="lasb_pdsxx" UNITNAME="lasb_pdsxx_p" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="lasb_rjsxx_p.cpp" FORMNAME="lasb_rjsxx" UNITNAME="lasb_rjsxx_p" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="lasb_rjtks_p.cpp" FORMNAME="lasb_rjtks" UNITNAME="lasb_rjtks_p" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="lasb_kssrr_p.cpp" FORMNAME="lasb_kssrr" UNITNAME="lasb_kssrr_p" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="lasb_ksroo_p.cpp" FORMNAME="lasb_ksroo" UNITNAME="lasb_ksroo_p" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="lasb_ksrvv_p.cpp" FORMNAME="lasb_ksrvv" UNITNAME="lasb_ksrvv_p" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="lasb_ksrjj_p.cpp" FORMNAME="lasb_ksrjj" UNITNAME="lasb_ksrjj_p" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="lasb_tosxx_p.cpp" FORMNAME="lasb_tosxx" UNITNAME="lasb_tosxx_p" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="lasb_togxx_p.cpp" FORMNAME="lasb_togxx" UNITNAME="lasb_togxx_p" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="lasb_xxsgrid_p.cpp" FORMNAME="lasb_xxsgrid" UNITNAME="lasb_xxsgrid_p" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="lasb_xxssave_p.cpp" FORMNAME="lasb_xxssave" UNITNAME="lasb_xxssave_p" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="lasb_xxsrest_p.cpp" FORMNAME="lasb_xxsrest" UNITNAME="lasb_xxsrest_p" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+  </FILELIST>
+  <BUILDTOOLS>
+  </BUILDTOOLS>
+
+  <IDEOPTIONS>
+[Version Info]
+IncludeVerInfo=0
+AutoIncBuild=0
+MajorVer=1
+MinorVer=0
+Release=0
+Build=0
+Debug=0
+PreRelease=0
+Special=0
+Private=0
+DLL=0
+Locale=1049
+CodePage=1251
+
+[Version Info Keys]
+CompanyName=
+FileDescription=
+FileVersion=1.0.0.0
+InternalName=
+LegalCopyright=
+LegalTrademarks=
+OriginalFilename=
+ProductName=
+ProductVersion=1.0.0.0
+Comments=
+
+[HistoryLists\hlIncludePath]
+Count=1
+Item0=D:\cb6\CBuilder6\Bin;G:\lasb_;$(BCB)\include;$(BCB)\include\vcl
+
+[HistoryLists\hlLibraryPath]
+Count=1
+Item0=D:\cb6\CBuilder6\Bin;G:\lasb_;$(BCB)\lib\obj;$(BCB)\lib
+
+[HistoryLists\hlDebugSourcePath]
+Count=1
+Item0=$(BCB)\source\vcl
+
+[HistoryLists\hlConditionals]
+Count=1
+Item0=_DEBUG
+
+[Debugging]
+DebugSourceDirs=$(BCB)\source\vcl
+
+[Parameters]
+RunParams=
+Launcher=
+UseLauncher=0
+DebugCWD=
+HostApplication=
+RemoteHost=
+RemotePath=
+RemoteLauncher=
+RemoteCWD=
+RemoteDebug=0
+
+[Compiler]
+ShowInfoMsgs=0
+LinkDebugVcl=1
+LinkCGLIB=0
+
+[CORBA]
+AddServerUnit=1
+AddClientUnit=1
+PrecompiledHeaders=1
+
+[Language]
+ActiveLang=
+ProjectLang=
+RootDir=
+  </IDEOPTIONS>
+</PROJECT>

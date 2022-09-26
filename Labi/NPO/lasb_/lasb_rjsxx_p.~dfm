@@ -1,0 +1,290 @@
+object lasb_rjsxx: Tlasb_rjsxx
+  Left = 762
+  Top = 241
+  Width = 638
+  Height = 430
+  Caption = 'lasb_rjsxx'
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  OldCreateOrder = False
+  OnClick = lasb_rjsxx_next_cClick
+  PixelsPerInch = 96
+  TextHeight = 13
+  object lasb_rjsxx_xxprg_l: TLabel
+    Left = 592
+    Top = 32
+    Width = 64
+    Height = 13
+    Caption = '=lasb_rjsxx='
+  end
+  object lasb_rjsxx_xxlas_l: TLabel
+    Left = 24
+    Top = 32
+    Width = 63
+    Height = 13
+    Caption = '=Луд А.С.='
+  end
+  object lasb_rjsxx_xxtitle_l: TLabel
+    Left = 256
+    Top = 72
+    Width = 146
+    Height = 13
+    Caption = 'lasb_регистрационный журнал(РЖ)'
+  end
+  object lasb_rjsxx_dokk_l: TLabel
+    Left = 80
+    Top = 152
+    Width = 73
+    Height = 13
+    Caption = 'lasb_документ'
+  end
+  object lasb_rjsxx_b1: TBevel
+    Left = 40
+    Top = 96
+    Width = 609
+    Height = 249
+  end
+  object lasb_rjsxx_k_l: TLabel
+    Left = 80
+    Top = 208
+    Width = 67
+    Height = 13
+    Caption = 'lasb_операция'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clRed
+    Font.Height = -12
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    ParentFont = False
+  end
+  object lasb_rjsxx_db_l: TLabel
+    Left = 128
+    Top = 256
+    Width = 40
+    Height = 13
+    Caption = 'lasb_Дб'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clRed
+    Font.Height = -12
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    ParentFont = False
+  end
+  object lasb_rjsxx_kr_l: TLabel
+    Left = 384
+    Top = 256
+    Width = 36
+    Height = 13
+    Caption = 'lasb_Кр'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clRed
+    Font.Height = -12
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    ParentFont = False
+  end
+  object lasb_rjsxx_dokd_l: TLabel
+    Left = 352
+    Top = 152
+    Width = 9
+    Height = 13
+    Caption = 'от'
+  end
+  object lasb_rjsxx_rub_l: TLabel
+    Left = 88
+    Top = 312
+    Width = 59
+    Height = 13
+    Caption = 'lasb_сумма'
+  end
+  object lasb_rjsxx_data_l: TLabel
+    Left = 80
+    Top = 112
+    Width = 87
+    Height = 13
+    Caption = 'lasb_дата операции'
+  end
+  object lasb_rjsxx_exit_c: TButton
+    Left = 576
+    Top = 392
+    Width = 75
+    Height = 25
+    Caption = 'Выход'
+    TabOrder = 0
+    OnClick = lasb_rjsxx_exit_cClick
+  end
+  object lasb_rjsxx_dokk_e: TDBEdit
+    Left = 176
+    Top = 144
+    Width = 65
+    Height = 21
+    DataField = 'lasb_rj_dokk'
+    DataSource = lasb_data.lasb_rjds
+    TabOrder = 1
+  end
+  object lasb_rjsxx_back_c: TButton
+    Left = 104
+    Top = 400
+    Width = 75
+    Height = 25
+    Caption = 'Назад'
+    TabOrder = 2
+    OnClick = lasb_rjsxx_back_cClick
+  end
+  object lasb_rjsxx_next_c: TButton
+    Left = 192
+    Top = 397
+    Width = 75
+    Height = 25
+    Caption = 'Вперед'
+    TabOrder = 3
+    OnClick = lasb_rjsxx_next_cClick
+  end
+  object lasb_rjsxx_add_c: TButton
+    Left = 352
+    Top = 397
+    Width = 75
+    Height = 25
+    Caption = 'Добавить'
+    TabOrder = 4
+    OnClick = lasb_rjsxx_add_cClick
+  end
+  object lasb_rjsxx_del_c: TButton
+    Left = 568
+    Top = 61
+    Width = 75
+    Height = 25
+    Caption = 'Удалить'
+    TabOrder = 6
+    OnClick = lasb_rjsxx_del_cClick
+  end
+  object lasb_rjsxx_grid_c: TButton
+    Left = 24
+    Top = 400
+    Width = 75
+    Height = 25
+    Caption = 'Выбрать'
+    TabOrder = 5
+    OnClick = lasb_rjsxx_grid_cClick
+  end
+  object lasb_rjsxx_to_e: TDBEdit
+    Left = 176
+    Top = 208
+    Width = 121
+    Height = 21
+    DataField = 'lasb_rj_to'
+    DataSource = lasb_data.lasb_rjds
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clRed
+    Font.Height = -12
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    ParentFont = False
+    ReadOnly = True
+    TabOrder = 7
+  end
+  object lasb_rjsxx_db_e: TDBEdit
+    Left = 176
+    Top = 248
+    Width = 41
+    Height = 21
+    DataField = 'lasb_rj_db'
+    DataSource = lasb_data.lasb_rjds
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clRed
+    Font.Height = -12
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    ParentFont = False
+    ReadOnly = True
+    TabOrder = 8
+  end
+  object lasb_rjsxx_dbn_e: TDBEdit
+    Left = 232
+    Top = 248
+    Width = 121
+    Height = 21
+    DataField = 'lasb_rj_dbn'
+    DataSource = lasb_data.lasb_rjds
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clRed
+    Font.Height = -12
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    ParentFont = False
+    ReadOnly = True
+    TabOrder = 9
+  end
+  object lasb_rjsxx_kr_e: TDBEdit
+    Left = 424
+    Top = 248
+    Width = 41
+    Height = 21
+    DataField = 'lasb_rj_kr'
+    DataSource = lasb_data.lasb_rjds
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clRed
+    Font.Height = -12
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    ParentFont = False
+    ReadOnly = True
+    TabOrder = 10
+  end
+  object lasb_rjsxx_krn_e: TDBEdit
+    Left = 472
+    Top = 248
+    Width = 121
+    Height = 21
+    DataField = 'lasb_rj_krn'
+    DataSource = lasb_data.lasb_rjds
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clRed
+    Font.Height = -12
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    ParentFont = False
+    ReadOnly = True
+    TabOrder = 11
+  end
+  object lasb_rjsxx_dokn_e: TDBEdit
+    Left = 248
+    Top = 144
+    Width = 81
+    Height = 21
+    DataField = 'lasb_rj_dokn'
+    DataSource = lasb_data.lasb_rjds
+    TabOrder = 12
+  end
+  object lasb_rjsxx_dokd_e: TDBEdit
+    Left = 376
+    Top = 144
+    Width = 81
+    Height = 21
+    DataField = 'lasb_rj_dokd'
+    DataSource = lasb_data.lasb_rjds
+    TabOrder = 13
+  end
+  object lasb_rjsxx_rub_e: TDBEdit
+    Left = 176
+    Top = 304
+    Width = 121
+    Height = 21
+    DataField = 'lasb_rj_rub'
+    DataSource = lasb_data.lasb_rjds
+    TabOrder = 14
+  end
+  object lasb_rjsxx_data_e: TDBEdit
+    Left = 176
+    Top = 112
+    Width = 81
+    Height = 21
+    DataField = 'lasb_rj_data'
+    DataSource = lasb_data.lasb_rjds
+    TabOrder = 15
+  end
+end

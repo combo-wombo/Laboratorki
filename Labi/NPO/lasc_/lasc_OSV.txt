@@ -1,0 +1,19 @@
+                                                                                     
+    =Lud A.S.=                  oborotno-saldovaa vedomost             =lasc_krsoo=  
+        schet      50             interval s     1. 1.2000      do    10.10.2021     
+                                                                                     
+  ---------------------------------------------------------------------------------  
+	 data      | sae  | dokument   | schet | korr schet | vx | oborot db kr | isx      
+  ---------------------------------------------------------------------------------  
+                                                                                     
+   9. 1.2018   mrac   pp              50           10             0          25      
+                      23                                                             
+                       9. 1.2018                                                     
+                                                                                     
+   9. 1.2018   mrac   pp              50           10             0          25      
+                      23                                                             
+                       9. 1.2018                                                     
+                                                                                     
+                                                                                     
+                                       lasc_itogo po schetu       0          50      
+                                                                                     
