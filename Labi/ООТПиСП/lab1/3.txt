@@ -1,0 +1,55 @@
+#include <QApplication>
+#include <QWidget>
+#include <QLabel>
+#include <QSpinBox>
+#include <QSlider>
+#include <QTextEdit>
+#include <QBoxLayout>
+#include <QPushButton>
+#include <QFileDialog>
+#include <iostream>
+#include <sstream>
+
+class QMyTextEdit : public QTextEdit{
+public slots:
+    void openFile(){
+        QString result;
+        QString file_name = QFileDialog::getOpenFileName();
+        QFile file(file_name);
+        if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+            return;
+
+        QTextStream in(&file);
+        while (!in.atEnd()) {
+            QString line = in.readLine();
+            QString newline = "\n";
+            result = result + line + newline;
+        }
+        this->setText(result);
+    }
+};
+
+//////////////////////////////////////////////////////////////////////
+int main (int argc, char **argv)
+{
+    QApplication app(argc, argv);
+    QWidget widget(0);
+
+    QHBoxLayout hbox;
+    widget.setLayout(&hbox);
+
+    QMyTextEdit text_edit;
+    QPushButton button1;
+    button1.setText("Open File");
+
+    QPushButton::connect(&button1, &QPushButton::clicked, &text_edit, &QMyTextEdit::openFile);
+
+    hbox.addWidget(&text_edit, 7);
+    hbox.addWidget(&button1, 1);
+    //подгоняем свойства главного окна
+    widget.setWindowTitle("Lab1 Zad1");
+    widget.resize(500, 500);
+
+    widget.show();
+    return app.exec();
+}
