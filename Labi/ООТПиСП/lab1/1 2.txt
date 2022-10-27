@@ -5,6 +5,7 @@
 #include <QSlider>
 #include <QPlainTextEdit>
 #include <QBoxLayout>
+#include <QPushButton>
 #include <iostream>
 #include <sstream>
 
@@ -13,7 +14,7 @@
 class QMyTextEdit : public QPlainTextEdit
 {
 public slots:
-    QMyTextEdit(){m_red = 255; m_green = 255; m_blue = 255;}
+    QMyTextEdit(){m_red = 0; m_green = 0; m_blue = 0;}
     void setRed(int red){
         m_red = red;
         setColor();
@@ -36,13 +37,26 @@ public:
     }
 private:
     std::string rgb2hex(int r, int g, int b){
-        std::stringstream ss;
-        ss << std::hex << (r << 16 | g << 8 | b );
-        return ss.str();
+        char hexColor[8];
+        std::snprintf(hexColor, sizeof hexColor, "%02x%02x%02x", r, g, b);
+        return hexColor;
     }
     int m_red;
     int m_green;
     int m_blue;
+};
+
+class QSlider2 : public QSlider{
+public slots:
+    void valueMax(){
+    this->setValue(255);
+    }
+    void valueMid(){
+    this->setValue(128);
+    }
+    void valueMin(){
+    this->setValue(0);
+    }
 };
 
 //////////////////////////////////////////////////////////////////////
@@ -71,7 +85,7 @@ int main (int argc, char **argv)
     left_vbox.addWidget(&sb_label2, Qt::AlignRight);
     left_vbox.addWidget(&sb_label3, Qt::AlignRight);
 
-    //середина (спинбоксы, ячейки с номером короче)
+    //середина (спинбоксы)
     QSpinBox sb1, sb2, sb3;
     sb1.setRange(0, 255);
     sb2.setRange(0, 255);
@@ -81,7 +95,10 @@ int main (int argc, char **argv)
     middle_vbox.addWidget(&sb3);
 
     //правый край (слайдеры, а также их connect или привязка)
-    QSlider rb1(Qt::Horizontal), rb2(Qt::Horizontal), rb3(Qt::Horizontal);
+    QSlider2 rb1, rb2, rb3;
+    rb1.setOrientation(Qt::Horizontal);
+    rb2.setOrientation(Qt::Horizontal);
+    rb3.setOrientation(Qt::Horizontal);
     right_vbox.addWidget(&rb1);
     right_vbox.addWidget(&rb2);
     right_vbox.addWidget(&rb3);
@@ -91,15 +108,40 @@ int main (int argc, char **argv)
     QSlider::connect(&rb1, &QSlider::valueChanged, &sb1, &QSpinBox::setValue);
     QSlider::connect(&rb2, &QSlider::valueChanged, &sb2, &QSpinBox::setValue);
     QSlider::connect(&rb3, &QSlider::valueChanged, &sb3, &QSpinBox::setValue);
+    QSpinBox::connect(&sb1, &QSpinBox::valueChanged, &rb1, &QSlider::setValue);
+    QSpinBox::connect(&sb2, &QSpinBox::valueChanged, &rb2, &QSlider::setValue);
+    QSpinBox::connect(&sb3, &QSpinBox::valueChanged, &rb3, &QSlider::setValue);
 
     //большой квадрат справа
     QMyTextEdit text_edit;
     text_edit.setEnabled(false);
     hbox.addWidget(&text_edit, 1);
+    text_edit.setColor();
 
     QSpinBox::connect(&sb1, &QSpinBox::valueChanged, &text_edit, &QMyTextEdit::setRed);
     QSpinBox::connect(&sb2, &QSpinBox::valueChanged, &text_edit, &QMyTextEdit::setGreen);
     QSpinBox::connect(&sb3, &QSpinBox::valueChanged, &text_edit, &QMyTextEdit::setBlue);
+
+    QPushButton bb1, bb2, bb3;
+    QPushButton::connect(&bb3, &QPushButton::clicked, &rb1, &QSlider2::valueMax);
+    QPushButton::connect(&bb3, &QPushButton::clicked, &rb2, &QSlider2::valueMax);
+    QPushButton::connect(&bb3, &QPushButton::clicked, &rb3, &QSlider2::valueMax);
+
+
+    QPushButton::connect(&bb2, &QPushButton::clicked, &rb1, &QSlider2::valueMid);
+    QPushButton::connect(&bb2, &QPushButton::clicked, &rb2, &QSlider2::valueMid);
+    QPushButton::connect(&bb2, &QPushButton::clicked, &rb3, &QSlider2::valueMid);
+
+
+    QPushButton::connect(&bb1, &QPushButton::clicked, &rb1, &QSlider2::valueMin);
+    QPushButton::connect(&bb1, &QPushButton::clicked, &rb2, &QSlider2::valueMin);
+    QPushButton::connect(&bb1, &QPushButton::clicked, &rb3, &QSlider2::valueMin);
+
+    hbox.addWidget(&bb1);
+
+    hbox.addWidget(&bb2);
+
+    hbox.addWidget(&bb3);
 
     //подгоняем свойства главного окна
     widget.setWindowTitle("Lab1 Zad1");
