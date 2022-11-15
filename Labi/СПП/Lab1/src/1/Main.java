@@ -11,6 +11,7 @@ public class Main {
         System.out.print("\nRand. array : ");
         for (int i : array){System.out.print(i + " ");}
     }
+
     public static int[] randomize(int[] arr){
         Random random = new Random();
         int buff = 0;

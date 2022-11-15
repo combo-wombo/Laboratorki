@@ -15,7 +15,7 @@ public class Main{
                 matrix[i][j] = sc.nextDouble();
             }
         }
-        
+
         PrintMatrix(matrix);
         transpose(matrix);
         PrintMatrix(matrix);
