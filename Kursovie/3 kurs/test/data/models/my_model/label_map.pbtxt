@@ -1,0 +1,12 @@
+item {
+    id: 1
+    name: 'key'
+}
+item {
+    id: 2
+    name: 'xiaomi'
+}
+item {
+    id: 3
+    name: 'coin'
+}
