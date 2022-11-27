@@ -7,21 +7,42 @@
 
 <body>
 <fieldset>
-<legend>Contact Form</legend>
+<legend>Create entry</legend>
 <form name="frmContact" method="post" action="contact.php">
-<p>
-<label for="Name">Name </label>
-<input type="text" name="txtName" id="txtName">
-</p>
-<p>
-<label for="email">Email</label>
-<input type="text" name="txtEmail" id="txtEmail">
-</p>
-<p>
-<label for="message">Message</label>
-<textarea name="txtMessage" id="txtMessage"></textarea>
-</p>
-<p>&nbsp;</p>
+    <p>
+        <label for="Name">Name: </label><br>
+        <input type="text" name="name" id="name">
+    </p>
+    <p>
+        <label for="Name">Job: </label><br>
+        <input type="text" name="job" id="job">
+    </p>
+    <p>
+        <label for="Name">Depatrment: </label><br>
+            <input type="radio" id="M&M" name="department" value="M&M">
+            <label for="M&M">M&M</label><br>
+            <input type="radio" id="ACCOUNTING" name="department" value="Accounting">
+            <label for="ACCOUNTING">Accounting</label><br>
+            <input type="radio" id="Media" name="department" value="Media">
+            <label for="Media">Media</label>
+    </p>
+    <p>
+        <label for="Name">Phone number: </label><br>
+        <input type="text" name="number" id="number">
+    </p>
+    <p>
+        <label for="Name">Date: </label><br>
+        <input type="text" name="date" id="date">
+    </p>
+    <p>
+        <label for="Name">Email: </label><br>
+        <input type="email" name="email" id="email">
+    </p>
+    <p>
+        <label for="Name">Comment: </label><br>
+        <textarea name="comment" id="comment"></textarea>
+    </p>
+
 <p>
     <input type="submit" name="Submit" id="Submit" value="Submit">
     <button type="reset">Reset</button>

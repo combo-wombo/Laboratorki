@@ -1,6 +1,68 @@
+body{
+	margin: 0;
+}
 button{
 	margin: 20px;
 	width: 200px;
 	font-size: 20px;
-	background-color: bisque;
+	background-color: wheat;
+	border: 2px solid black;
+	border-radius: 10px;
+}
+.edit_buttons{
+	margin-top:20px !important;
+}
+.window{
+	height: 500px;
+	width: 44%;
+	padding: 3%;
+	position:absolute;
+	left: 25%;
+	top: 20%;
+	border: 1px solid black;
+	background-color:bisque;
+}
+h1 {
+	text-align: center;
+	margin-top: 7%;
+}
+.main_menu{
+	position: inherit;
+	left: 10%;
+	top: 10%;
+	width: 80%;
+	height: 80%;
+}
+.namefield{
+	width: 47%;
+	height: 100%;
+	position: inherit;
+	top: 0;
+	left: 0;
+	margin: 0;
+	font-size: 30px;
+}
+.buttons{
+	width: 47%;
+	height: 100%;
+	position: inherit;
+	top: 0;
+	left: 56%;
+	margin: 0;
+}
+.buttons button{
+	margin: 20px;
+	width: 100%;
+	height: 18%;
+	font-size: 20px;
+	background-color: wheat;
+	border: 2px solid black;
+	border-radius: 5px;
+	transition: 0.6s;
+	box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+}
+.buttons button:hover{
+	transition: 0.3s;
+	background-color:beige;
+	cursor:grab;
 }
