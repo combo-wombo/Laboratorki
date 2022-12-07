@@ -1,1 +1,0 @@
-python -m PyQt5.uic.pyuic -x [FILENAME].ui -o [FILENAME].py (Windows) (при этом находясь в папке со скриптом)
