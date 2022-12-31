@@ -1,0 +1,42 @@
+MODELS_DIR = ...
+...
+LAST_TRACKED_NAME = ...
+
+class Thread(QThread):
+    changePixmap = pyqtSignal(QImage)
+	...
+    def run(self):
+	...
+        cap = cv2.VideoCapture(self.source)
+	...
+        
+class App(QWidget):
+...
+    @pyqtSlot(QImage)
+    def setImage(self, image):
+        self.label.setPixmap(QPixmap.fromImage(image))
+
+    def initUI(self):
+	...
+        self.thC = Thread(self)
+        self.thC.source = 0
+        self.thC.loaded.connect(self.placeholder.stopTimer)
+        self.thC.changePixmap.connect(self.setImage)
+...
+    def openCamera(self):
+        self.label.show()
+        self.placeholder.timer.start()
+        self.thF.stop()
+        self.thC.stopvar = 0
+        self.thC.start()
+
+    def onChanged(self, text):
+        global TRACKED_NAME
+        TRACKED_NAME = text
+    
+    def listOptions(self):
+        li = []
+        category_index = label_map_util.create_category_index_from_labelmap(PATH_TO_LABELS, use_display_name=True)
+        for a in category_index:
+            li.append(category_index.get(a).get('name'))
+        return li

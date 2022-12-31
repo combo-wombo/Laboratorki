@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="LauncherBackground">
+    <file>Launcher.jpg</file>
+  </qresource>
+</RCC>

@@ -1,0 +1,168 @@
+MODELS_DIR = os.path.join(os.path.join(os.getcwd(), 'data'), 'models')
+MODEL_NAME = 'efficientdet'
+PATH_TO_CKPT = os.path.join(MODELS_DIR, os.path.join(MODEL_NAME, 'checkpoint/'))
+PATH_TO_CFG = os.path.join(MODELS_DIR, os.path.join(MODEL_NAME, 'pipeline.config'))
+PATH_TO_LABELS = os.path.join(MODELS_DIR, os.path.join(MODEL_NAME, 'label_map.pbtxt'))
+TRACKED_NAME = 'person'
+LAST_TRACKED_NAME = 'person'
+
+class Thread(QThread):
+    changePixmap = pyqtSignal(QImage)
+    loaded = pyqtSignal()
+    source = 0
+    stopvar = 0
+
+    def stop(self):
+        self.stopvar = 1
+
+    def run(self):
+
+        gpus = tf.config.experimental.list_physical_devices('GPU')
+        for gpu in gpus:
+            tf.config.experimental.set_memory_growth(gpu, True)
+
+        configs = config_util.get_configs_from_pipeline_file(PATH_TO_CFG)
+        model_config = configs['model']
+        detection_model = model_builder.build(model_config=model_config, is_training=False)
+
+        ckpt = tf.compat.v2.train.Checkpoint(model=detection_model)
+        ckpt.restore(os.path.join(PATH_TO_CKPT, 'ckpt-0')).expect_partial()
+
+        @tf.function
+        def detect_fn(image):
+            image, shapes = detection_model.preprocess(image)
+            prediction_dict = detection_model.predict(image, shapes)
+            detections = detection_model.postprocess(prediction_dict, shapes)
+            return detections, prediction_dict, tf.reshape(shapes, [-1])
+
+        category_index = label_map_util.create_category_index_from_labelmap(PATH_TO_LABELS, use_display_name=True)
+
+        cap = cv2.VideoCapture(0)
+        detect_history = []
+
+        class Overlay():
+            lines = []
+            def __init__(self, x1, y1, x2, y2, color):
+                self.x1 = x1
+                self.y1 = y1
+                self.x2 = x2
+                self.y2 = y2
+                self.color = color
+            def addLine(self):
+                Overlay.lines.append([self.x1, self.y1, self.x2, self.y2, self.color])
+        
+        def saveDetect(name, curX, curY, color):
+            global TRACKED_NAME
+            global LAST_TRACKED_NAME
+            if TRACKED_NAME != LAST_TRACKED_NAME:
+                Overlay.lines.clear()
+                LAST_TRACKED_NAME = TRACKED_NAME
+                return
+            if name == LAST_TRACKED_NAME:
+                if len(detect_history) == 0:
+                    detect_history.append([name, curX, curY, color])
+                else:
+                    buf = 0
+                    for i in range(len(detect_history)):
+                        if detect_history[i][0] == name:
+                            prevX = detect_history[i][1]
+                            prevY = detect_history[i][2]
+                            color = detect_history[i][3]
+                            Overlay.addLine(Overlay(prevY, prevX, curY, curX, color))
+                            detect_history[i][1] = curX
+                            detect_history[i][2] = curY
+                        buf = i
+                    if buf == (len(detect_history)-1):
+                        detect_history.append([name, curX, curY, color])
+        cap = cv2.VideoCapture(self.source)
+        self.loaded.emit()
+        while True:
+            ret, image_np = cap.read()
+            image_np = cv2.resize(image_np, (640,480))
+            input_tensor = tf.convert_to_tensor(value=np.expand_dims(image_np, 0), dtype=tf.float32)
+            detections, predictions_dict, shapes = detect_fn(input_tensor)
+            label_id_offset = 1
+            image_np_with_detections = image_np.copy()
+
+            viz_utils.visualize_boxes_and_labels_on_image_array(                                                                                                      
+                image_np_with_detections,                   detections['detection_boxes'][0].numpy(),     (detections['detection_classes'][0].numpy() + label_id_offset).astype(int),
+                detections['detection_scores'][0].numpy(),  category_index,                               use_normalized_coordinates=True,          
+                max_boxes_to_draw=10,                       min_score_thresh=.6,                         agnostic_mode=False)
+
+            for i in range(6):
+                if (detections['detection_scores'][0][i].numpy() > 0.6):
+                    #print("name:  ", category_index.get((detections['detection_classes'][0][i].numpy() + label_id_offset).astype(int)).get('name'))
+                    yCur = (detections['detection_boxes'][0][i][0].numpy() + detections['detection_boxes'][0][i][2].numpy()) / 2
+                    xCur = (detections['detection_boxes'][0][i][1].numpy() + detections['detection_boxes'][0][i][3].numpy()) / 2
+                    box_color = ImageColor.getrgb(STANDARD_COLORS[((detections['detection_classes'][0].numpy() + label_id_offset).astype(int)[i])% len(STANDARD_COLORS)])
+                    box_title = category_index.get((detections['detection_classes'][0][i].numpy() + label_id_offset).astype(int)).get('name')
+                    saveDetect(box_title, round(yCur*480), round(xCur*640), box_color)
+
+            for line in Overlay.lines:
+                cv2.line(image_np_with_detections, (line[0],line[1]), (line[2],line[3]), line[4], 3)
+                
+            cv2.putText(image_np_with_detections , 'KAMISARAU, PO-7, 2022', (20,460), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255,255,255), 1, 2)
+            if cv2.waitKey(25) & 0xFF == ord('q'):
+                break
+            if self.stopvar == 1:
+                break
+            if ret:
+                # https://stackoverflow.com/a/55468544/6622587
+                rgbImage = cv2.cvtColor(image_np_with_detections, cv2.COLOR_BGR2RGB)
+                h, w, ch = rgbImage.shape
+                bytesPerLine = ch * w
+                convertToQtFormat = QImage(rgbImage.data, w, h, bytesPerLine, QImage.Format_RGB888)
+                p = convertToQtFormat.scaled(640, 480, Qt.KeepAspectRatio)
+                self.changePixmap.emit(p)
+        cap.release()
+        print("finished thread")
+        self.stopvar = 0
+
+...
+        
+class App(QWidget):
+
+	...
+
+    @pyqtSlot(QImage)
+    def setImage(self, image):
+        self.label.setPixmap(QPixmap.fromImage(image))
+
+    def __init__():
+	...
+        self.thF = Thread(self)
+        self.thF.loaded.connect(self.placeholder.stopTimer)
+        self.thF.changePixmap.connect(self.setImage)
+
+    def openFileNameDialog(self):
+        options = QFileDialog.Options()
+        options |= QFileDialog.DontUseNativeDialog
+        fileName, _ = QFileDialog.getOpenFileName(self,"QFileDialog.getOpenFileName()", "","Video files (*.mp4)", options=options)
+        if fileName:
+            return fileName
+
+    def openFile(self):
+        file = self.openFileNameDialog()
+        self.thF.source = file
+        self.label.show()
+        self.placeholder.timer.start()
+        self.thC.stop()
+        self.thF.stopvar = 0
+        self.thF.start()
+
+    def stopAll(self):
+        self.placeholder.setText("Waiting for command")
+        self.label.hide()
+...
+        self.thF.stop()
+
+    def onChanged(self, text):
+        global TRACKED_NAME
+        TRACKED_NAME = text
+    
+    def listOptions(self):
+        li = []
+        category_index = label_map_util.create_category_index_from_labelmap(PATH_TO_LABELS, use_display_name=True)
+        for a in category_index:
+            li.append(category_index.get(a).get('name'))
+        return li
