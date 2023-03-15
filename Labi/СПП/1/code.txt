@@ -1,0 +1,69 @@
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+import static java.lang.Math.pow;
+
+public class Main {
+
+    public static int factorial(int n)
+    {
+        if (n == 0) return 1;
+        try {
+            Thread.sleep(300);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        return n * factorial(n-1);
+    }
+
+    static double calculate(int x, int k){
+        return pow(x, 2 * k) / factorial(2*k);
+    }
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int input = 0;
+        int x = 0;
+        int k = 0;
+        boolean running = true;
+        while(running){
+            System.out.println("===================================");
+            System.out.println(" 1 - Set X");
+            System.out.println(" 2 - Set K");
+            System.out.println(" 3 - Print result");
+            System.out.println(" 0 - Exit.");
+            System.out.print(" Your input : ");
+            try {
+                input = in.nextInt();
+            } catch (InputMismatchException e) {
+                in = new Scanner(System.in);
+                input = 9;
+            }
+            switch(input){
+                case 1:
+                    System.out.print(" Enter X : ");
+                    x = in.nextInt();
+                    break;
+                case 2:
+                    System.out.print(" Enter K : ");
+                    k = in.nextInt();
+                    break;
+                case 3:
+                    if (k == 0 || x == 0){
+                        System.out.println("X or K is not set up, try again.");
+                        break;
+                    }
+                    for(int i = 0; i<k; i++){
+                        System.out.println(" Result (i = " + (i+1) + "): " + calculate(x, i));
+                    }
+                    break;
+                case 0:
+                    running = false;
+                break;
+                default:
+                    System.out.println("(!) Incorrect input, try again (1,2,3,0). (!)");
+                    break;
+            }
+        }
+    }
+}

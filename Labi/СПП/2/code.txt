@@ -1,0 +1,163 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+import static java.lang.Math.pow;
+
+public class Main {
+
+    public static int factorial(int n)
+    {
+        if (n == 0) return 1;
+        return n * factorial(n-1);
+    }
+
+    static double calculate(int x, int k){
+        return pow(x, 2 * k) / factorial(2*k);
+    }
+
+    static void message_to_result(String msg){
+        new Thread(() -> {
+            String prev_result_text = result_text.getText();
+            result_text.setText(msg);
+            button_start.setEnabled(false);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                throw new RuntimeException(ex);
+            }
+            button_start.setEnabled(true);
+            result_text.setText(prev_result_text);
+        }).start();
+    }
+
+    static JLabel title_text = new JLabel("Введите значения переменных.");
+    static JLabel enter_x_text = new JLabel("Введите значение Х");
+    static JLabel enter_n_text = new JLabel("Введите значение n");
+    static JTextField input_x = new JTextField();
+    static JTextField input_n = new JTextField();
+    static JButton button_start = new JButton("Начать вычисления");
+    static JButton button_reset = new JButton("Сбросить значения");
+    static JButton button_stop = new JButton("Пауза");
+    static JLabel result_text = new JLabel("Результат: ");
+
+    static CalcThread calcThread;
+
+    static ActionListener listenerStart = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if(calcThread != null && calcThread.isAlive()){
+                calcThread.pause = false;
+                button_start.setText("Продолжить");
+                button_start.setEnabled(false);
+                button_stop.setEnabled(true);
+            } else {
+                if (!input_x.getText().isEmpty() && !input_n.getText().isEmpty()) {
+                    int x_val = Integer.parseInt(input_x.getText());
+                    int n_val = Integer.parseInt(input_n.getText());
+                    if (x_val != 0 && n_val != 0) {
+                        calcThread = new CalcThread();
+                        calcThread.SetupVars(x_val, n_val);
+                        calcThread.start();
+                        result_text.setText("Результат: ");
+                    } else {
+                        if (x_val == 0) {
+                            message_to_result("X не может быть равен нулю");
+                            return;
+                        }
+                        message_to_result("N не может быть равен нулю");
+                        return;
+                    }
+                } else {
+                    message_to_result("Одно или несколько полей пусты");
+                }
+
+                button_start.setEnabled(false);
+                button_stop.setEnabled(true);
+                button_reset.setText("Прекратить вычисления");
+            }
+        }
+    };
+
+    static ActionListener listenerReset = e -> {
+        if(button_reset.getText().equals("Сбросить значения")){
+            input_x.setText("");
+            input_n.setText("");
+            button_reset.setEnabled(false);
+        } else {
+            calcThread.stop = true;
+            calcThread = null;
+            Main.button_start.setText("Начать вычисления");
+            Main.button_reset.setText("Сбросить значения");
+            Main.button_start.setEnabled(true);
+            Main.button_reset.setEnabled(true);
+            Main.button_stop.setEnabled(false);
+        }
+    };
+    static ActionListener listenerStop = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if(calcThread != null){
+                calcThread.pause = true;
+                button_start.setText("Продолжить");
+                button_start.setEnabled(true);
+                button_stop.setEnabled(false);
+            }
+        }
+    };
+    static KeyListener numbers_filter = new KeyAdapter() {
+        public void keyTyped(KeyEvent e) {
+            char c = e.getKeyChar();
+            if (!((c >= '0') && (c <= '9') ||
+                    (c == KeyEvent.VK_BACK_SPACE) ||
+                    (c == KeyEvent.VK_DELETE))) {
+                e.consume();
+            }
+            button_reset.setEnabled(true);
+        }
+    };
+
+    public static void main(String[] args) {
+
+        input_x.addKeyListener(numbers_filter);
+        input_n.addKeyListener(numbers_filter);
+
+        button_start.addActionListener(listenerStart);
+        button_reset.addActionListener(listenerReset);
+        button_stop.addActionListener(listenerStop);
+
+        JFrame frame = new JFrame();
+        frame.setSize(new Dimension(550,260));  //setting window size
+        frame.setResizable(false);
+
+        JPanel panel = new JPanel();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+        frame.setTitle("Лабораторная 8 КОМИССАРОВ");
+
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.add(Box.createRigidArea(new Dimension(0, 5))); // empty space 5px high
+
+        panel.add(title_text);
+        panel.add(enter_x_text);
+        panel.add(input_x);
+        panel.add(enter_n_text);
+        panel.add(input_n);
+        panel.add(Box.createRigidArea(new Dimension(0, 5)));
+        panel.add(button_start);
+        panel.add(Box.createRigidArea(new Dimension(0, 5)));
+        panel.add(button_reset);
+        panel.add(Box.createRigidArea(new Dimension(0, 5)));
+        panel.add(button_stop);
+        panel.add(Box.createRigidArea(new Dimension(0, 5)));
+        panel.add(result_text);
+        panel.add(Box.createRigidArea(new Dimension(0, 10)));
+        frame.add(panel);
+
+        frame.setLocationRelativeTo(null); // align window to screen center
+
+        button_start.setEnabled(true);
+        button_reset.setEnabled(false);
+        button_stop.setEnabled(false);
+    }
+}

@@ -1,0 +1,89 @@
+import java.sql.*;
+import java.util.Scanner;
+
+public class Main {
+    private static Scanner in = new Scanner(System.in);
+    private static final String dbAddress = "jdbc:mysql://localhost:3306/spp_lab";
+    private static final String dbUsername="root";
+    private static final String dbPassword="";
+
+    public static void main(String[] args) {
+        Connection connection;
+        Statement statement;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connection = DriverManager.getConnection(dbAddress, dbUsername, dbPassword);
+            statement = connection.createStatement();
+            ResultSet resultSet;
+            System.out.println("Connected to '" + dbAddress + "' as " + dbUsername);
+
+            System.out.println("\n1. SELECT * FROM t_places ORDER BY `rating` DESC: ");
+            System.out.println("     id     |        title         |                          description                           | rtg | pos_x | pos_y");
+            System.out.println("------------+----------------------+----------------------------------------------------------------+-----+-------+------");
+            resultSet = statement.executeQuery("SELECT * FROM t_places ORDER BY `rating` DESC");
+            while (resultSet.next()) {
+                System.out.printf("%-11d | \"%-18.18s\" | \"%-20.60s\" | %-3.1f | %-5.1f | %-5.1f\n",
+                        resultSet.getInt(1), resultSet.getString(2),
+                        resultSet.getString(3), resultSet.getFloat(4),
+                        resultSet.getFloat(5), resultSet.getFloat(6));
+            }
+
+            System.out.println("\n2. SELECT * FROM t_places WHERE rating > 4.7 AND title LIKE 'Б%': ");
+            resultSet = statement.executeQuery("SELECT * FROM t_places WHERE rating > 4.7 AND title LIKE 'Б%'");
+            while (resultSet.next()) {
+                System.out.printf("%-11d | \"%-18.18s\" | \"%-20.60s\" | %-3.1f | %-5.1f | %-5.1f\n",
+                        resultSet.getInt(1), resultSet.getString(2),
+                        resultSet.getString(3), resultSet.getFloat(4),
+                        resultSet.getFloat(5), resultSet.getFloat(6));
+            }
+
+            System.out.println("\n 3. INSERT INTO `t_stops` (`id`, `title`, `pos_x`, `pos_y`):");
+            System.out.print("\nEnter Stop title: ");
+            String stopTitle = in.nextLine();
+            System.out.print("\nEnter Stop pos_x: ");
+            float stopX = in.nextFloat();
+            System.out.print("\nEnter Stop pos_y: ");
+            float stopY = in.nextFloat();
+            statement.executeUpdate("INSERT INTO `t_stops` (`id`, `title`, `pos_x`, `pos_y`) VALUES (NULL, '"+stopTitle+"', '"+stopX+"', '"+stopY+"')");
+            System.out.println("t_stops: ");
+            System.out.println("     id     |        title         | pos_x | pos_y");
+            System.out.println("------------+----------------------+-------+------");
+            resultSet = statement.executeQuery("SELECT * FROM t_stops");
+            while (resultSet.next()) {
+                System.out.printf("%-11d | \"%-18.18s\" | %-5.1f | %-5.1f\n",
+                        resultSet.getInt(1), resultSet.getString(2),
+                        resultSet.getFloat(3), resultSet.getFloat(4));
+            }
+
+            System.out.println("\n 4. DELETE FROM `t_places` WHERE id=6:");
+            statement.executeUpdate("DELETE FROM `t_places` WHERE id=6");
+            System.out.println("     id     |        title         |                          description                           | rtg | pos_x | pos_y");
+            System.out.println("------------+----------------------+----------------------------------------------------------------+-----+-------+------");
+            resultSet = statement.executeQuery("SELECT * FROM t_places ORDER BY `rating` DESC");
+            while (resultSet.next()) {
+                System.out.printf("%-11d | \"%-18.18s\" | \"%-20.60s\" | %-3.1f | %-5.1f | %-5.1f\n",
+                        resultSet.getInt(1), resultSet.getString(2),
+                        resultSet.getString(3), resultSet.getFloat(4),
+                        resultSet.getFloat(5), resultSet.getFloat(6));
+            }
+
+            System.out.println("\n 4. UPDATE `t_places` SET title='Updated' WHERE id=1:");
+            statement.executeUpdate("UPDATE `t_places` SET title='Updated' WHERE id=1");
+            System.out.println("     id     |        title         |                          description                           | rtg | pos_x | pos_y");
+            System.out.println("------------+----------------------+----------------------------------------------------------------+-----+-------+------");
+            resultSet = statement.executeQuery("SELECT * FROM t_places ORDER BY `rating` DESC");
+            while (resultSet.next()) {
+                System.out.printf("%-11d | \"%-18.18s\" | \"%-20.60s\" | %-3.1f | %-5.1f | %-5.1f\n",
+                        resultSet.getInt(1), resultSet.getString(2),
+                        resultSet.getString(3), resultSet.getFloat(4),
+                        resultSet.getFloat(5), resultSet.getFloat(6));
+            }
+
+            connection.close();
+        }
+        catch (ClassNotFoundException | SQLException e) {
+            System.out.println(e);
+            System.out.println(e.getMessage());
+        }
+    }
+}
