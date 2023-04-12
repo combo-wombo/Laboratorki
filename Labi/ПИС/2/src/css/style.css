@@ -1,0 +1,165 @@
+html {height: 100%;font-family: Georgia, 'Times New Roman', Times, serif;}body{background: #e7e7e7;margin: 0;padding: 0;width: 100%;height: 100%;}
+a:link {color: white; text-decoration: none;} a:visited {color: white;text-decoration: none;} a:hover {color: white;text-decoration: none;} a:active {color: white;text-decoration: none;}
+
+.header{
+    background: #ffffff;
+    width: 100%;
+    height: 8%;
+    text-align: center;
+    font-size: 300%;
+    line-height: 150%;
+}
+.button {
+    background-color: #4d4d4d;
+    transition: 0.3s;
+    border: none;
+    width: 10em;
+    height: 2.0em;
+    text-align: center;
+    font-size: 200%;
+    line-height: 200%;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    text-shadow: 1px 1px 3px #4d4d4d;
+}
+.header .button{   
+    position:absolute;
+    top: 1%;
+    left: 1%;
+    height: 5%;
+    width: 200px;
+    line-height: 120%;
+    background-color: #4d4d4d;
+    transition: 0.3s;
+    border: none;
+    text-align: center;
+    font-size: 80%;
+    padding: 5px;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    text-shadow: 1px 1px 3px #4d4d4d;
+}
+
+.button:hover{
+    background-color: #919191;
+    transition: 0.15s;
+    width: 11em;
+}
+.header .button:hover{
+    background-color: #919191;
+    transition: 0.15s;
+    width: 200px;
+}
+.container{
+    display:flex;
+    width:100%;
+    min-height: 92%;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.container table{
+    padding: 5px;
+    margin: 5px;
+    background:black;
+    border: 2px solid black;
+}
+.menuContainer{
+    display:flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+    height: 50%;
+    width: 100%;
+}
+table{
+    border-collapse: collapse;
+    border: 1px solid;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+th {
+    background-color: #cfcfcf;
+    border: 1px solid;
+    padding: 10px;
+}
+td {
+    background-color: white;
+    border: 1px solid;
+    padding: 10px;
+}
+form input[type=text]{
+    width: 100%;
+}
+.FailText{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    position:absolute;
+    animation-name: notification;
+    animation-duration: 7s;
+    animation-iteration-count: 1;
+    top: 8.5%;
+    left: -200%;
+
+    padding: 20px;
+    margin: 1%;
+    background: #cf3b3b;
+    color: white;
+    border-radius: 20px;
+}
+.SuccessText{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    position:absolute;
+    animation-name: notification;
+    animation-duration: 4s;
+    animation-iteration-count: 1;
+    top: 8.5%;
+    left: -200%;
+    
+    padding: 20px;
+    margin: 1%;
+    background: #4ccf3b;
+    color: white;
+    border-radius: 20px;
+}
+#viewAll{
+    padding-top: 1.5%;
+    align-items: flex-start;
+}
+
+@keyframes notification {
+    0% {
+        left: 0%;
+        opacity: 0%;
+    }
+  
+    5% {
+        left: 3.8%;
+        opacity: 50%;
+    }
+
+    10%{
+        opacity: 100%;
+    }
+
+    25%{
+        left: 4%;
+    }
+
+    50%{
+        left: 3.8%;
+    }
+
+    80%{
+        left: 4%;
+    }
+
+    95%{
+        left: 3.8%;
+        opacity: 100%;
+    }
+
+    100%{
+        opacity: 0%;
+        left: -100%;
+    }
+  }
