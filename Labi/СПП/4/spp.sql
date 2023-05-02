@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Апр 19 2023 г., 01:27
+-- Время создания: Май 02 2023 г., 10:55
 -- Версия сервера: 10.4.25-MariaDB
 -- Версия PHP: 8.1.10
 
@@ -127,7 +127,8 @@ CREATE TABLE `transport` (
 INSERT INTO `transport` (`id`, `name`, `number`, `route_id`, `period_id`, `ticket_id`, `driver_id`) VALUES
 (2, 'Троллейбус', '103', 2, 3, 6, 1),
 (3, 'Авиарейс', '412', 3, 3, 4, 3),
-(4, 'Маршрутка', '18', 1, 2, 5, 2);
+(4, 'Троллейбус', '18', 1, 2, 5, 2),
+(6, 'Автобус', '123', 3, 2, 5, 2);
 
 --
 -- Индексы сохранённых таблиц
@@ -195,7 +196,7 @@ ALTER TABLE `tickets`
 -- AUTO_INCREMENT для таблицы `transport`
 --
 ALTER TABLE `transport`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
