@@ -1,0 +1,155 @@
+Для решения каждой из предложенных задач SQL запросами, я предоставлю вам образец запроса и описание того, что делает этот запрос. Пожалуйста, уточните, если вам нужны какие-либо дополнительные сведения или если у вас возникнут вопросы по запросам.
+
+1. Вывести данные о всех заседаниях комиссий, проведенных между 01.01.19 и 20.02.19:
+
+```sql
+SELECT *
+FROM Meetings
+WHERE MeetingDate BETWEEN '2019-01-01' AND '2019-02-20';
+```
+
+2. Вывести названия всех профилей комиссий, в названиях которых входит "_о":
+
+```sql
+SELECT ProfileName
+FROM Committees
+WHERE ProfileName LIKE '%_о%';
+```
+
+3. Вывести данные о депутатах, участвующих в максимальном числе комиссий:
+
+```sql
+SELECT DeputyName, COUNT(*) AS NumberOfCommittees
+FROM CommitteeMembers
+GROUP BY DeputyName
+ORDER BY NumberOfCommittees DESC
+LIMIT 1;
+```
+
+4. Для каждого депутата посчитать среднее количество заседаний, в которых он принял участие:
+
+```sql
+SELECT DeputyName, AVG(MeetingsAttended) AS AvgMeetingsAttended
+FROM CommitteeMembers
+GROUP BY DeputyName;
+```
+
+5. Вывести список депутатов, участвовавших во всех комиссиях:
+
+```sql
+SELECT DeputyName
+FROM CommitteeMembers
+GROUP BY DeputyName
+HAVING COUNT(DISTINCT CommitteeName) = (SELECT COUNT(*) FROM Committees);
+```
+
+6. Для каждого депутата вывести средний промежуток в днях между заседаниями, в которых он участвовал:
+
+```sql
+SELECT DeputyName, AVG(DaysBetweenMeetings) AS AvgDaysBetweenMeetings
+FROM (
+  SELECT DeputyName, MeetingDate - LAG(MeetingDate) OVER (PARTITION BY DeputyName ORDER BY MeetingDate) AS DaysBetweenMeetings
+  FROM CommitteeMembers
+) Subquery
+GROUP BY DeputyName;
+```
+
+7. Вывести данные о комиссиях, которые заседали в те же дни, что и комиссия по образованию:
+
+```sql
+SELECT c1.CommitteeName
+FROM CommitteeMeetings AS c1
+WHERE c1.MeetingDate IN (
+  SELECT DISTINCT MeetingDate
+  FROM CommitteeMeetings AS c2
+  WHERE c2.CommitteeName = 'EducationCommittee'
+);
+```
+
+8. Вывести данные о самых молодых депутатах, которые работают в данный момент в палате:
+
+```sql
+SELECT DeputyName, Age
+FROM Deputies
+WHERE DepartureDate IS NULL
+ORDER BY Age
+LIMIT 5;
+```
+
+9. Вывести данные о депутатах, о которых точно известно, что они не принимали участия в заседаниях:
+
+```sql
+SELECT DeputyName
+FROM Deputies
+WHERE DeputyName NOT IN (SELECT DISTINCT DeputyName FROM CommitteeMembers);
+```
+
+10. Вывести данные о комиссии с самым продолжительным в днях перерывом в работе:
+
+```sql
+SELECT CommitteeName, MAX(DaysBetweenMeetings) AS MaxDaysBetweenMeetings
+FROM (
+  SELECT CommitteeName, MeetingDate - LAG(MeetingDate) OVER (PARTITION BY CommitteeName ORDER BY MeetingDate) AS DaysBetweenMeetings
+  FROM CommitteeMeetings
+) Subquery
+GROUP BY CommitteeName
+ORDER BY MaxDaysBetweenMeetings DESC
+LIMIT 1;
+```
+
+11. Посчитать среднее число депутатов в заседаниях комиссий:
+
+```sql
+SELECT AVG(DeputyCount) AS AvgDeputyCount
+FROM (
+  SELECT CommitteeName, COUNT(DISTINCT DeputyName) AS DeputyCount
+  FROM CommitteeMembers
+  GROUP BY CommitteeName
+) Subquery;
+```
+
+12. Вывести данные о депутатах, которые приняли участие в заседаниях больше раз, чем депутат И:
+
+```sql
+SELECT DeputyName
+FROM (
+  SELECT DeputyName, COUNT(*) AS MeetingCount
+  FROM CommitteeMembers
+  GROUP BY DeputyName
+) Subquery
+WHERE MeetingCount > (SELECT MeetingCount FROM Subquery WHERE DeputyName = 'Депутат И');
+```
+
+13. Вывести данные для каждой комиссии о суммарной продолжительности ее работы в минутах:
+
+```sql
+SELECT CommitteeName, SUM(DurationMinutes) AS TotalDurationMinutes
+FROM CommitteeMeetings
+GROUP BY CommitteeName;
+```
+
+14. Вывести данные о комиссиях, у которых суммарная продолжительность работы в минутах превосходит суммарную продолжительность работы комиссии по образованию:
+
+```sql
+SELECT CommitteeName
+FROM (
+  SELECT CommitteeName, SUM(DurationMinutes) AS TotalDurationMinutes
+  FROM CommitteeMeetings
+  GROUP BY CommitteeName
+) Subquery
+WHERE TotalDurationMinutes > (
+  SELECT SUM(DurationMinutes)
+  FROM CommitteeMeetings
+  WHERE CommitteeName = 'EducationCommittee'
+);
+```
+
+15. Вывести данные о парах комиссий по дням заседаний и их суммарном времени работы в данный день:
+
+```sql
+SELECT A.MeetingDate, A.CommitteeName AS Committee1, B.CommitteeName AS Committee2, A.DurationMinutes + B.DurationMinutes AS TotalDurationMinutes
+FROM CommitteeMeetings A
+INNER JOIN CommitteeMeetings B ON A.MeetingDate = B.MeetingDate AND A.CommitteeName < B.CommitteeName;
+```
+
+Обратите внимание, что эти запросы предполагают наличие соответствующих таблиц и связей между ними в вашей базе данных. Если структура вашей базы данных отличается, запросы могут потребовать некоторых изменений.
