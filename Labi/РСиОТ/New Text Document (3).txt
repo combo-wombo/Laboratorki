@@ -1,0 +1,49 @@
+Bug - id, type, title, app
+App - id, title
+User - id, type, name, password
+
+List (Bugs) - type
+List (Users) - all
+List (Apps) - all
+
+GetAllBugs
+	return bugs[]
+GetBugs(app)
+	return bugs[]
+AddBug(app, type, title)
+	return status
+DeleteBug(id)
+	return status
+EditBug(userId, type, title, app)
+	return status
+GetWorkedOnList()
+	return bugs[]
+GetClosedList()
+	return bugs[]
+RegisterUser(type, name, password)
+	return status
+LoginUser(name, password)
+	return status
+DeleteAllBugs(App)
+	return status
+CloseAllBugs(App)
+	return status
+CloseAllBugsEverywhere()
+	return status
+
+баг трекер
+•	Получение списка элементов (товаров, транспортных средств, лекарств, …).
+	получить все баги
+	получить баги от ...
+•	Добавление элемента.
+	добавить новый баг (type, title)
+•	Удаление элемента.
+	удалить баг (id)
+•	Изменение характеристик элемента.
+	поменять в баге чтонить (type, title, urgency)
+•	Использование элемента (добавить в корзину, добавить в рецепт, записать в зачетку, …).
+	вставить в список отработанных или работаемых, либо закрыть
+•	Регистрация события (оформление заказа, выписка рецепта, сдача экзамена, продажа билетов, …)
+	регистрация пользователя (тип, имя, пароль)
+	закрыть все баги
+	удалить все баги
